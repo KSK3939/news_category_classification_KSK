@@ -16,7 +16,7 @@ import time
 
 options = ChromeOptions()
 options.add_argument('lang=ko_KR')
-options.add_argument('headless')
+#options.add_argument('headless')
 
 service = ChromeService(executable_path = ChromeDriverManager().install())
 driver = webdriver.Chrome(service = service, options = options)
@@ -55,9 +55,7 @@ for category, section_num in sections:
     df_section_titles = pd.DataFrame(titles, columns=['titles'])
     df_section_titles['category'] = category
     df_titles = pd.concat([df_titles, df_section_titles], ignore_index=True)
-    file_name = './data/naver_news_section_{}.csv'.format(category.lower())
-    df_section_titles.to_csv(file_name, index=False, encoding='utf-8-sig')
 
 print(df_titles.head())
 df_titles.info()
-df_titles.to_csv('./data/naver_headline_news.csv', index = False)
+df_titles.to_csv('./data/naver_headline_news_{}.csv'.format(datetime.datetime.now().strftime('%Y%m%d')), index = False)

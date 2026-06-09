@@ -21,14 +21,14 @@ options.add_argument('headless')
 service = ChromeService(executable_path = ChromeDriverManager().install())
 driver = webdriver.Chrome(service = service, options = options)
 
-sections = [['World', '104'], ['IT', '105']]
+sections = [['Economy', '101']]
 
 df_titles = pd.DataFrame(columns = ['titles', 'category'])
 for category, section_num in sections:
     url = 'https://news.naver.com/section/{}'.format(section_num)
     driver.get(url)
     time.sleep(1)
-    button_xpath = '//*[@id="newsct"]/div[4]/div/div[2]/a'
+    button_xpath = '//*[@id="newsct"]/div[5]/div/div[2]/a'
     for i in range(30):
         driver.find_element(By.XPATH, button_xpath).click()
         time.sleep(0.5)
@@ -43,7 +43,7 @@ for category, section_num in sections:
     for i in range(1, 188):
         for j in range(1, 7):
             try:
-                title_xpath = '//*[@id="newsct"]/div[4]/div/div[1]/div[{}]/ul/li[{}]/div/div/div[2]/a/strong'.format(i, j)
+                title_xpath = '//*[@id="newsct"]/div[5]/div/div[1]/div[{}]/ul/li[{}]/div/div/div[2]/a/strong'.format(i, j)
                 title = driver.find_element(By.XPATH, title_xpath).text
 
                 titles.append(title)
@@ -56,9 +56,9 @@ for category, section_num in sections:
     df_section_titles['category'] = category
     df_titles = pd.concat([df_titles, df_section_titles], ignore_index=True)
 
-    file_name = './data/naver_news_section_{}.csv'.format(category.lower())
+    file_name = './data/naver_news_section_20260609_{}.csv'.format(category.lower())
     df_section_titles.to_csv(file_name, index=False, encoding='utf-8-sig')
 
 print(df_titles.head())
 df_titles.info()
-df_titles.to_csv('./data/naver_headline_news.csv', index = False)
+df_titles.to_csv('./data/naver_headline_news_economy.csv', index = False)

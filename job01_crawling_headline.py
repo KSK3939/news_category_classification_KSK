@@ -4,7 +4,7 @@ import re
 import pandas as pd
 import datetime
 
-category = ['Politics', 'Economic', 'Social', 'Culture', 'World', 'IT']
+category = ['Politics', 'Economy', 'Social', 'Culture', 'World', 'IT']
 df_titles = pd.DataFrame()
 
 #'https://news.naver.com/section/100'  정치
